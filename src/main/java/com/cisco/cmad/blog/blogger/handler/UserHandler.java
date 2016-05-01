@@ -27,6 +27,8 @@ public class UserHandler {
 
     @Inject ModelMapper mapper;
 
+    private final String DEFAULT_SITE_NAME = "Dummy site name";
+
     /**
      * Handles the GET REST call for user details based on ID Returns Json representation of user if user id is found
      * and returns the following
@@ -187,68 +189,44 @@ public class UserHandler {
             rc.vertx().executeBlocking(future -> {
                 Company company = mapper.map(reg, Company.class);
 
-                if (logger.isDebugEnabled()) {
-                    logger.debug("Company object post object mapping :" + company);
-                }
+                logger.debug("Company object post object mapping :" + company);
+
                 try {
                     String companyId = companyService.storeCompanyDetails(company);
                     logger.info("Company created. Id :" + companyId);
 
                     Site site = mapper.map(reg, Site.class);
                     site.setCompanyId(companyId);
-                    site.setSiteName("Dummy site name"); //GUI is not sending site name
+                    site.setSiteName(DEFAULT_SITE_NAME); //GUI is not sending site name
 
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("Site object post object mapping :" + site);
-                    }
+                    logger.debug("Site object post object mapping :" + site);
 
-                    try {
-                        String siteId = companyService.storeSiteDetails(site);
+                    String siteId = companyService.storeSiteDetails(site);
 
-                        logger.info("Site created. Id :" + siteId);
+                    logger.info("Site created. Id :" + siteId);
 
-                        Department dept = mapper.map(reg, Department.class);
-                        dept.setSiteId(siteId);
+                    Department dept = mapper.map(reg, Department.class);
+                    dept.setSiteId(siteId);
+                    logger.debug("Department object post object mapping :" + dept);
 
-                        if (logger.isDebugEnabled()) {
-                            logger.debug("Department object post object mapping :" + dept);
-                        }
+                    String deptId = companyService.storeDepartmentDetails(dept);
 
-                        try {
+                    logger.info("Department created. Id :" + deptId);
 
-                            String deptId = companyService.storeDepartmentDetails(dept);
+                    User user = mapper.map(reg, User.class);
 
-                            logger.info("Department created. Id :" + deptId);
+                    user.setCompanyId(companyId);
+                    user.setSiteId(siteId);
+                    user.setDeptId(deptId);
 
-                            User user = mapper.map(reg, User.class);
+                    logger.debug("User object post object mapping :" + user);
 
-                            user.setCompanyId(companyId);
-                            user.setSiteId(siteId);
-                            user.setDeptId(deptId);
+                    String userid = userService.storeUserDetails(user);
+                    logger.info("User created. Id: " + userid);
+                    future.complete(userid);
 
-                            if (logger.isDebugEnabled()) {
-                                logger.debug("User object post object mapping :" + user);
-                            }
-
-                            try {
-                                String userid = userService.storeUserDetails(user);
-                                logger.info("User created. Id: " + userid);
-                                future.complete(userid);
-
-                            } catch (Exception ex) {
-                                logger.error("Error occurred while trying to save User details  ", ex);
-                                future.fail(ex.getCause());
-                            }
-                        } catch (Exception ex) {
-                            logger.error("Error occurred while trying to save Department details  ", ex);
-                            future.fail(ex.getCause());
-                        }
-                    } catch (Exception ex) {
-                        logger.error("Error occurred while trying to save Site details  ", ex);
-                        future.fail(ex.getCause());
-                    }
                 } catch (Exception ex) {
-                    logger.error("Error occurred while trying to save company ", ex);
+                    logger.error("Error occurred while trying to save data ", ex);
                     future.fail(ex.getCause());
                 }
             }, res -> {

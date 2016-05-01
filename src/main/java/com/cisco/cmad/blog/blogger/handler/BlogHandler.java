@@ -119,20 +119,13 @@ public class BlogHandler {
             }, res -> {
 
                 if (res.succeeded()) {
-
                     Object obj = res.result();
-                    User user = null;
-
                     if (obj != null) {
-                        user = (User) obj;
-
+                        User user = (User) obj;
                         blog.setUserFirst(user.getFirst());
                         blog.setUserLast(user.getLast());
                         blog.setUserId(user.getId());
-
-                        if (logger.isDebugEnabled())
-                            logger.debug("Blog object after adding user info : " + blog);
-
+                        logger.debug("Blog object after adding user info : " + blog);
                     } else {
                         response.setStatusCode(HttpResponseCode.NOT_FOUND.get()).end("User Not Found :" + id);
                     }
@@ -148,10 +141,7 @@ public class BlogHandler {
 
                 //Add date just before storing :)
                 blog.setDate(new Date());
-                String blogId = blogService.storeBlog(blog);
-                if (logger.isDebugEnabled())
-                    logger.debug("POST success, ID: " + blogId + " Thread :" + Thread.currentThread().getId());
-                future.complete(blogId);
+                future.complete(blogService.storeBlog(blog));
             } catch (Exception ex) {
                 logger.error("Error occurred while trying to save Blog details ", ex);
                 future.fail(ex.getCause());

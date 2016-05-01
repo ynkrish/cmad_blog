@@ -2,6 +2,7 @@ package com.cisco.cmad.blog.blogger;
 
 import com.cisco.cmad.blog.blogger.handler.BlogHandler;
 import com.cisco.cmad.blog.blogger.handler.CompanyHandler;
+import com.cisco.cmad.blog.blogger.handler.FailureHandler;
 import com.cisco.cmad.blog.blogger.handler.UserHandler;
 import com.cisco.cmad.blog.blogger.util.BlogModule;
 import com.cisco.cmad.blog.blogger.util.HttpResponseCode;
@@ -26,7 +27,7 @@ import javax.inject.Inject;
 public class BloggerVerticle extends AbstractVerticle {
 
 	/*
-     * TODO:
+     * Note:
 	 * 
 	 * 1. Change to use logger - DONE.
 	 * 2. Come up with the model classes & DTOs - DONE, not using DTO for now.
@@ -135,6 +136,9 @@ public class BloggerVerticle extends AbstractVerticle {
         //Static handler for resource
 
         router.route().handler(StaticHandler.create().setCachingEnabled(true)::handle);
+
+        //For any exceptions that are not taken care of in code
+        router.route().failureHandler(FailureHandler.create());
 
         //Enable SSL - currently using self signed certs
         HttpServerOptions httpOpts = new HttpServerOptions();
