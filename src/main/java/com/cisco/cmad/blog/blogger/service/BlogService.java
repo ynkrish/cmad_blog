@@ -1,6 +1,7 @@
 package com.cisco.cmad.blog.blogger.service;
 
-import com.cisco.cmad.blog.blogger.model.*;
+import com.cisco.cmad.blog.blogger.model.Blog;
+import com.cisco.cmad.blog.blogger.model.Comment;
 
 import java.util.List;
 

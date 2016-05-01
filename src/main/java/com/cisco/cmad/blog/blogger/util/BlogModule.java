@@ -6,7 +6,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
-import com.google.inject.name.Names;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import io.vertx.core.logging.Logger;
@@ -19,16 +18,8 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Optional;
-import java.util.Properties;
-
-import static net.jmob.guice.conf.core.Syntax.JSON;
 
 /**
  * Created by kyechcha on 21-Apr-16.

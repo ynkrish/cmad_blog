@@ -22,7 +22,7 @@ public class UserHandler {
     Logger logger = LoggerFactory.getLogger(UserHandler.class);
 
     @Inject UserService userService;
-    //FIXME: Refactor to see if we can have single responsibility
+    //Note Refactor to see if we can have single responsibility
     @Inject CompanyService companyService;
 
     @Inject ModelMapper mapper;
@@ -44,7 +44,7 @@ public class UserHandler {
 
         String queryParam = rc.request().getParam("signedIn");
 
-        if (queryParam != null && queryParam.trim().equals("true")) {
+        if (queryParam != null && queryParam.trim().equals(Boolean.TRUE.toString())) {
 
             String id = rc.session().get("id");
 
@@ -104,7 +104,7 @@ public class UserHandler {
      */
     public void authenticateUser(RoutingContext rc) {
 
-        //TODO: Try MongoDB Authentication API instead of current approach
+        //Note: Try MongoDB Authentication API instead of current approach
         HttpServerResponse response = rc.response();
 
         String jsonString = rc.getBodyAsString();

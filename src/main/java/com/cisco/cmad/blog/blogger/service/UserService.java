@@ -2,8 +2,6 @@ package com.cisco.cmad.blog.blogger.service;
 
 import com.cisco.cmad.blog.blogger.model.User;
 
-import java.util.List;
-
 /**
  * Created by kyechcha on 26-Apr-16.
  */

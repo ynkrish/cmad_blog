@@ -34,20 +34,20 @@ public class BloggerVerticle extends AbstractVerticle {
 	 * 4. Respond with correct HTTP codes (need to come up with these) - DONE
 	 * 5. Handle exceptions .. - DONE
 	 * 6. Persist data to DB and retrieve data from DB (mongodb for now) - DONE
-	 * 7. Write Unit test cases with Vert.x unit and jUnit - FIXME
-	 * 8. Test Coverage  - FIXME
-	 * 9. Separate deployment - i.e. separate docker containers for DB and for Service tier. - FIXME
-	 * 10. figure out Auth mechanism in Vert.x - DONE. (USER LOGIN - not using Auth Provider for now.. FIXME: Refactor)
+	 * 7. Write Unit test cases with Vert.x unit and jUnit - TBD
+	 * 8. Test Coverage  - TBD
+	 * 9. Separate deployment - i.e. separate docker containers for DB and for Service tier. - TBD
+	 * 10. figure out Auth mechanism in Vert.x - DONE. (USER LOGIN - not using Auth Provider for now.. TBD: Refactor)
 	 * 11. Move long running tasks to worker threads - DONE
 	 * 12. Remove internet dependencies (on JS downloads) - DONE
-	 * 13. Session handling and session invalidation. - PARTIALLY DONE. TODO: LOGOUT NEEDS TO BE DONE
+	 * 13. Session handling and session invalidation. - PARTIALLY DONE. TBD: LOGOUT NEEDS TO BE DONE
 	 * 14. HTTPS support (as we are using session cookies with http) - DONE
 	 * 15. Refactor and remove DB access code to another tier. - DONE
 	 * 16. Perform DI for Service/DAOs - DONE
 	 * 17. Security headers - best practices - DONE
-	 * 18. Basic Auth for REST Services - FIXME
+	 * 18. Basic Auth for REST Services - TBD
 	 * 19. ObjectMappers - DONE
-	 * 20. Externalize DB properties and inject same - FIXME
+	 * 20. Externalize DB properties and inject same - DONE
 	 */
 
     Logger logger = LoggerFactory.getLogger(BloggerVerticle.class);
@@ -59,9 +59,6 @@ public class BloggerVerticle extends AbstractVerticle {
     @Override
     public void start(Future<Void> startFuture) {
 
-        /*
-            FIXME: Find a better to inject the property file data into module
-         */
         Injector injector = Guice.createInjector(new BlogModule());
         BlogModule module = injector.getInstance(BlogModule.class);
         Guice.createInjector(module).injectMembers(this);
@@ -157,7 +154,7 @@ public class BloggerVerticle extends AbstractVerticle {
                         }
                 );
 
-        // TODO: Implement logout in Front end code
+        // NOTE: Implement logout in Front end code
         router.route("/logout").handler(context -> {
             context.clearUser();
             logger.info("Logout called");
@@ -182,26 +179,16 @@ public class BloggerVerticle extends AbstractVerticle {
         System.setProperty("logback.configurationFile", "logback.xml");
 
         System.out.println("In BloggerVerticle main method ");
-        //TODO: Pass no. of workers via configuration on command line during startup
+        //TBD: Pass no. of workers via configuration on command line during startup
         VertxOptions options = new VertxOptions().setWorkerPoolSize(10);
         Vertx vertx = Vertx.vertx(options);
-
-
 
 	    /*
 	     * only for testing - in container, we would end up using -conf and pass location of conf file
 	     */
-
         DeploymentOptions depOps = new DeploymentOptions();
         depOps.setConfig(new JsonObject().put("https.port", port));
 
-        //TODO: How to do this injection at runtime ?
-        //Injector injector = Guice.createInjector(new BlogModule());
-        //vertx.deployVerticle(injector.getInstance(BloggerVerticle.class), depOps);
         vertx.deployVerticle(new BloggerVerticle(), depOps);
-
-        System.out.println("Deployed BloggerVerticle vertx");
-
-
     }
 }

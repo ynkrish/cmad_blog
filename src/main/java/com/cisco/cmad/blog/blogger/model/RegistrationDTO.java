@@ -11,7 +11,7 @@ public class RegistrationDTO {
     @Setter @Getter private String first;
     @Setter @Getter private String last;
     @Setter @Getter private String userName;
-    @Setter @Getter private String password;  //FIXME: Setter data encryption
+    @Setter @Getter private String password;  //NOTE: Setter data encryption
     @Setter @Getter private String email;
     @Setter @Getter private String companyName;
     @Setter @Getter private String subdomain;

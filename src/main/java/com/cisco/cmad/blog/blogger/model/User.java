@@ -19,7 +19,7 @@ public class User {
     @Getter @Setter private String first;
     @Getter @Setter private String last;
     @Getter @Setter private String userName;
-    @Getter @Setter private String password;  //FIXME: Enc/Dec
+    @Getter @Setter private String password;  //NOTE: Enc/Dec
     @Getter @Setter private String email;
 
     private ObjectId companyId;
