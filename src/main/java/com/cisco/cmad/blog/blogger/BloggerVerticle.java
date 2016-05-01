@@ -80,7 +80,7 @@ public class BloggerVerticle extends AbstractVerticle {
                 .create(LocalSessionStore.create(vertx))
                 .setCookieHttpOnlyFlag(true)
                 .setCookieSecureFlag(true)
-                .setSessionTimeout(30 * 60 * 1000)); //30 minutes
+                .setSessionTimeout(1800000L)); //30 minutes
 
         //Adds X-XSRF-TOKEN header. XSRF-TOKEN cookie -
         //router.route().handler(CSRFHandler.create("CMAD - Blogger App, not yet a good secret !!"));

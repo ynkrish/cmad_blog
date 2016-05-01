@@ -3,6 +3,7 @@ package com.cisco.cmad.blog.blogger.handler;
 import com.cisco.cmad.blog.blogger.model.*;
 import com.cisco.cmad.blog.blogger.service.CompanyService;
 import com.cisco.cmad.blog.blogger.service.UserService;
+import com.cisco.cmad.blog.blogger.util.BlogConstants;
 import com.cisco.cmad.blog.blogger.util.HttpResponseCode;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
@@ -20,11 +21,8 @@ public class UserHandler {
 
     Logger logger = LoggerFactory.getLogger(UserHandler.class);
 
-    private final String CONTENT_TYPE = "content-type";
-    private final String JSON = "application/json";
-
     @Inject UserService userService;
-    //FIXME: Refactor
+    //FIXME: Refactor to see if we can have single responsibility
     @Inject CompanyService companyService;
 
     @Inject ModelMapper mapper;
@@ -62,7 +60,7 @@ public class UserHandler {
                     try {
                         User user = userService.getUserDetails(id);
                         future.complete(user);
-                    } catch (Throwable ex) {
+                    } catch (Exception ex) {
                         logger.error("Error in retrieving user details for id " + id, ex);
                         future.fail(ex.getCause());
                     }
@@ -74,7 +72,7 @@ public class UserHandler {
 
                         if (obj != null) {
                             user = (User) obj;
-                            response.putHeader(CONTENT_TYPE, JSON);
+                            response.putHeader(BlogConstants.CONTENT_TYPE, BlogConstants.JSON);
                             response.setStatusCode(HttpResponseCode.OK.get()).end(Json.encodePrettily(user));
 
                         } else {
@@ -120,7 +118,7 @@ public class UserHandler {
                     User dto = Json.decodeValue(jsonString, User.class);
                     String id = userService.authenticateUser(dto.getUserName(), dto.getPassword());
                     future.complete(id);
-                } catch (Throwable ex) {
+                } catch (Exception ex) {
                     logger.error("Error while trying to authenticate user ", ex);
                     future.fail(ex.getCause());
                 }

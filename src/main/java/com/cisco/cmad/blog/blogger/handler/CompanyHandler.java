@@ -4,6 +4,7 @@ import com.cisco.cmad.blog.blogger.model.Company;
 import com.cisco.cmad.blog.blogger.model.Department;
 import com.cisco.cmad.blog.blogger.model.Site;
 import com.cisco.cmad.blog.blogger.service.CompanyService;
+import com.cisco.cmad.blog.blogger.util.BlogConstants;
 import com.cisco.cmad.blog.blogger.util.HttpResponseCode;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
@@ -19,9 +20,6 @@ import java.util.List;
  */
 public class CompanyHandler {
     Logger logger = LoggerFactory.getLogger(CompanyHandler.class);
-
-    private final String CONTENT_TYPE = "content-type";
-    private final String JSON = "application/json";
 
     @Inject CompanyService companyService;
 
@@ -50,7 +48,7 @@ public class CompanyHandler {
                     retVal = "{}";
                 }
                 future.complete(retVal);
-            } catch (Throwable ex) {
+            } catch (Exception ex) {
                 logger.error("Error in fetching company list ", ex);
                 future.fail(ex.getCause());
             }
@@ -104,7 +102,7 @@ public class CompanyHandler {
                 Object obj = res.result();
                 List<Site> sites = null;
 
-                response.putHeader(CONTENT_TYPE, JSON);
+                response.putHeader(BlogConstants.CONTENT_TYPE, BlogConstants.JSON);
 
                 if (obj == null) {
                     response.setStatusCode(HttpResponseCode.OK.get()).end("{}");
@@ -167,7 +165,7 @@ public class CompanyHandler {
                 Object obj = res.result();
                 List<Department> departments = null;
 
-                response.putHeader(CONTENT_TYPE, JSON);
+                response.putHeader(BlogConstants.CONTENT_TYPE, BlogConstants.JSON);
 
                 if (obj == null) {
                     response.setStatusCode(HttpResponseCode.OK.get()).end("{}");

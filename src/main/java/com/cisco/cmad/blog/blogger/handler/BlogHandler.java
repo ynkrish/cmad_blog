@@ -5,6 +5,7 @@ import com.cisco.cmad.blog.blogger.model.Comment;
 import com.cisco.cmad.blog.blogger.model.User;
 import com.cisco.cmad.blog.blogger.service.BlogService;
 import com.cisco.cmad.blog.blogger.service.UserService;
+import com.cisco.cmad.blog.blogger.util.BlogConstants;
 import com.cisco.cmad.blog.blogger.util.HttpResponseCode;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
@@ -22,9 +23,6 @@ import java.util.List;
 public class BlogHandler {
 
     Logger logger = LoggerFactory.getLogger(BlogHandler.class);
-
-    private final String CONTENT_TYPE = "content-type";
-    private final String JSON = "application/json";
 
     @Inject BlogService blogService;
     @Inject UserService userService;
@@ -67,7 +65,7 @@ public class BlogHandler {
             }
         }, res -> {
             if (res.succeeded()) {
-                response.putHeader(CONTENT_TYPE, JSON);
+                response.putHeader(BlogConstants.CONTENT_TYPE, BlogConstants.JSON);
                 response.setStatusCode(HttpResponseCode.OK.get()).end(res.result().toString());
             } else {
                 response.setStatusCode(HttpResponseCode.INTERNAL_ERROR.get())
@@ -115,6 +113,7 @@ public class BlogHandler {
                     User user = userService.getUserDetails(id);
                     future.complete(user);
                 } catch (Exception ex) {
+                    logger.error("Error while retrieving user details for id :" + id, ex);
                     future.fail(ex.getCause());
                 }
             }, res -> {
