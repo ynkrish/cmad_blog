@@ -29,7 +29,7 @@ public class BloggerVerticleTest {
 		socket.close();
 		DeploymentOptions options = new DeploymentOptions().setConfig(new JsonObject().put("https.port", port));
 
-		vertx.deployVerticle(BloggerVerticleTest.class.getName(), options, context.asyncAssertSuccess());
+		vertx.deployVerticle(BloggerVerticle.class.getName(), options, context.asyncAssertSuccess());
 	}
 
 	@After
