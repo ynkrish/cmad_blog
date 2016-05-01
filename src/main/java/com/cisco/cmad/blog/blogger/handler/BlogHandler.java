@@ -61,7 +61,7 @@ public class BlogHandler {
                     List<Blog> blogs = blogService.getBlogs();
                     future.complete(Json.encodePrettily(blogs));
                 }
-            } catch (Throwable ex) {
+            } catch (Exception ex) {
                 logger.error("Exception while trying to fetch blogs " + queryParam, ex);
                 future.fail(ex.getCause());
             }
@@ -114,7 +114,7 @@ public class BlogHandler {
                 try {
                     User user = userService.getUserDetails(id);
                     future.complete(user);
-                } catch (Throwable ex) {
+                } catch (Exception ex) {
                     future.fail(ex.getCause());
                 }
             }, res -> {
@@ -153,7 +153,7 @@ public class BlogHandler {
                 if (logger.isDebugEnabled())
                     logger.debug("POST success, ID: " + blogId + " Thread :" + Thread.currentThread().getId());
                 future.complete(blogId);
-            } catch (Throwable ex) {
+            } catch (Exception ex) {
                 logger.error("Error occurred while trying to save Blog details ", ex);
                 future.fail(ex.getCause());
             }
@@ -203,7 +203,7 @@ public class BlogHandler {
                 try {
                     User user = userService.getUserDetails(id);
                     future.complete(user);
-                } catch (Throwable ex) {
+                } catch (Exception ex) {
                     logger.error("Error while trying to fetch user details ", ex);
                     future.fail(ex.getCause());
                 }
@@ -242,7 +242,7 @@ public class BlogHandler {
                 if (logger.isDebugEnabled())
                     logger.debug("Comment updated in blog successfully");
                 future.complete();
-            } catch (Throwable ex) {
+            } catch (Exception ex) {
                 logger.error("Error occurred while trying to save Comment details for blog : " + blogId, ex);
                 future.fail(ex.getCause());
             }

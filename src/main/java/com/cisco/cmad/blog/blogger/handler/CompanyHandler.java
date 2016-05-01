@@ -94,7 +94,7 @@ public class CompanyHandler {
                         logger.debug("Sites for company :" + companyId + " ::" + sites);
                     }
                     future.complete(sites);
-                } catch (Throwable ex) {
+                } catch (Exception ex) {
                     logger.error("Error while fetching sites for company :" + companyId, ex);
                     future.fail(ex.getCause());
                 }
@@ -156,7 +156,7 @@ public class CompanyHandler {
                         logger.debug("Departments for Site :" + siteId + " ::" + departments);
                     }
                     future.complete(departments);
-                } catch (Throwable ex) {
+                } catch (Exception ex) {
                     logger.error("Error while fetching departments for Company :"
                             + companyId + " and Site :" + siteId, ex);
                     future.fail(ex.getCause());

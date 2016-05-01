@@ -237,19 +237,19 @@ public class UserHandler {
                                 logger.info("User created. Id: " + userid);
                                 future.complete(userid);
 
-                            } catch (Throwable ex) {
+                            } catch (Exception ex) {
                                 logger.error("Error occurred while trying to save User details  ", ex);
                                 future.fail(ex.getCause());
                             }
-                        } catch (Throwable ex) {
+                        } catch (Exception ex) {
                             logger.error("Error occurred while trying to save Department details  ", ex);
                             future.fail(ex.getCause());
                         }
-                    } catch (Throwable ex) {
+                    } catch (Exception ex) {
                         logger.error("Error occurred while trying to save Site details  ", ex);
                         future.fail(ex.getCause());
                     }
-                } catch (Throwable ex) {
+                } catch (Exception ex) {
                     logger.error("Error occurred while trying to save company ", ex);
                     future.fail(ex.getCause());
                 }
@@ -274,7 +274,7 @@ public class UserHandler {
                     if (logger.isDebugEnabled())
                         logger.debug("POST success, ID: " + id + " Thread :" + Thread.currentThread().getId());
                     future.complete(id);
-                } catch (Throwable ex) {
+                } catch (Exception ex) {
                     logger.error("Error occurred while trying to save User details ", ex);
                     future.fail(ex.getCause());
                 }
