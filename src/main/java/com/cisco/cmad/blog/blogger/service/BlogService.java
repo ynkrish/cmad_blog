@@ -4,6 +4,7 @@ import com.cisco.cmad.blog.blogger.model.Blog;
 import com.cisco.cmad.blog.blogger.model.Comment;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by kyechcha on 21-Apr-16.
@@ -11,19 +12,12 @@ import java.util.List;
 public interface BlogService {
 
     /**
-     * Retrieves all the blogs present
-     *
-     * @return List of all blogs
-     */
-    List<Blog> getBlogs();
-
-    /**
      * Retrieves only those blogs whose tags match the search keyword
      *
      * @param searchKeyword Keyword to be used for searching
      * @return List of all blogs matching the search keyword, viz tag
      */
-    List<Blog> getBlogs(String searchKeyword);
+    List<Blog> getBlogs(Optional<String> searchKeyword);
 
     /**
      * Persists the blog data

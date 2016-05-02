@@ -64,7 +64,7 @@ public class UserHandler {
                         future.complete(user);
                     } catch (Exception ex) {
                         logger.error("Error in retrieving user details for id " + id, ex);
-                        future.fail(ex.getCause());
+                        future.fail(ex);
                     }
                 }, res -> {
                     if (res.succeeded()) {
@@ -122,7 +122,7 @@ public class UserHandler {
                     future.complete(id);
                 } catch (Exception ex) {
                     logger.error("Error while trying to authenticate user ", ex);
-                    future.fail(ex.getCause());
+                    future.fail(ex);
                 }
 
             }, res -> {
@@ -227,13 +227,14 @@ public class UserHandler {
 
                 } catch (Exception ex) {
                     logger.error("Error occurred while trying to save data ", ex);
-                    future.fail(ex.getCause());
+                    future.fail(ex);
                 }
             }, res -> {
                 if (res.succeeded())
                     response.setStatusCode(HttpResponseCode.CREATED.get()).end(res.result().toString());
-                else
+                else {
                     response.setStatusCode(HttpResponseCode.INTERNAL_ERROR.get()).end(res.cause().getMessage());
+                }
             });
         } else {
             //User registration
@@ -252,7 +253,7 @@ public class UserHandler {
                     future.complete(id);
                 } catch (Exception ex) {
                     logger.error("Error occurred while trying to save User details ", ex);
-                    future.fail(ex.getCause());
+                    future.fail(ex);
                 }
             }, res -> {
                 HttpServerResponse response = rc.response();

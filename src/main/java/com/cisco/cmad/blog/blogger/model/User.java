@@ -8,8 +8,8 @@ import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "users", noClassnameStored = true)
 @Indexes({
-        @Index(value = "userAndCompany", unique = true, fields = {@Field("userName"), @Field("companyId")}),
-        @Index(value = "email", unique = true, fields = @Field("email"))
+        @Index(fields = {@Field("userName"), @Field("companyId")},options = @IndexOptions(unique = true)),
+        @Index(fields = @Field("email"), options = @IndexOptions(unique = true))
 })
 @ToString(doNotUseGetters = true)
 public class User {

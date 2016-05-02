@@ -11,6 +11,7 @@ import org.mongodb.morphia.query.UpdateOperations;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by kyechcha on 30-Apr-16.
@@ -22,8 +23,13 @@ public class BlogDAOImpl extends BasicDAO<Blog, ObjectId> implements BlogDAO {
         super(ds);
     }
 
-    public List<Blog> getBlogs(String searchKeyword) {
-        return createQuery().field("tags").contains(searchKeyword).asList();
+    @Override
+    public List<Blog> getBlogs(Optional<String> searchKeyword) {
+        return  searchKeyword.map( tag -> {
+            return createQuery().field("tags").contains(tag).order("-date").asList();
+        }).orElseGet(() -> {
+            return createQuery().order("-date").asList();
+        });
     }
 
     @Override

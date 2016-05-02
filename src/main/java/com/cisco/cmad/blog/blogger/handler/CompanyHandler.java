@@ -50,7 +50,7 @@ public class CompanyHandler {
                 future.complete(retVal);
             } catch (Exception ex) {
                 logger.error("Error in fetching company list ", ex);
-                future.fail(ex.getCause());
+                future.fail(ex);
             }
         }, res -> {
             HttpServerResponse response = rc.response();
@@ -94,7 +94,7 @@ public class CompanyHandler {
                     future.complete(sites);
                 } catch (Exception ex) {
                     logger.error("Error while fetching sites for company :" + companyId, ex);
-                    future.fail(ex.getCause());
+                    future.fail(ex);
                 }
             }
         }, res -> {
@@ -157,7 +157,7 @@ public class CompanyHandler {
                 } catch (Exception ex) {
                     logger.error("Error while fetching departments for Company :"
                             + companyId + " and Site :" + siteId, ex);
-                    future.fail(ex.getCause());
+                    future.fail(ex);
                 }
             }
         }, res -> {

@@ -8,6 +8,7 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by kyechcha on 21-Apr-16.
@@ -26,12 +27,7 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public List<Blog> getBlogs() {
-        return blogDao.find().asList();
-    }
-
-    @Override
-    public List<Blog> getBlogs(String searchKeyword) {
+    public List<Blog> getBlogs(Optional<String> searchKeyword) {
         return blogDao.getBlogs(searchKeyword);
     }
 

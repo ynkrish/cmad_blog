@@ -24,16 +24,18 @@
 			<scope>test</scope>
 		</dependency>
 
-        <!--<dependency>
+		<dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>1.10.19</version>
-        </dependency>-->
+			<scope>test</scope>
+        </dependency>
 
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-unit</artifactId>
             <version>3.2.1</version>
+			<scope>test</scope>
         </dependency>
 
         <!-- Vertx -->
@@ -43,11 +45,12 @@
 			<version>3.2.1</version>
 		</dependency>
 
-        <dependency>
+       <!--
+       <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-auth-common</artifactId>
             <version>3.2.1</version>
-        </dependency>
+        </dependency> -->
 
         <!-- Mongo -->
 		<dependency>

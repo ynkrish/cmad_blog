@@ -138,7 +138,7 @@ public class BloggerVerticle extends AbstractVerticle {
         router.route().handler(StaticHandler.create().setCachingEnabled(true)::handle);
 
         //For any exceptions that are not taken care of in code
-        router.route().failureHandler(FailureHandler.create());
+       //router.route().failureHandler(FailureHandler.create());
 
         //Enable SSL - currently using self signed certs
         HttpServerOptions httpOpts = new HttpServerOptions();

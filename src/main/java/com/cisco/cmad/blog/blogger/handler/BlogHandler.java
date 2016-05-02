@@ -16,6 +16,7 @@ import io.vertx.ext.web.RoutingContext;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by kyechcha on 29-Apr-16.
@@ -52,16 +53,16 @@ public class BlogHandler {
             try {
                 if (queryParam != null && queryParam.trim().length() > 0) {
                     //Search by tag
-                    List<Blog> blogs = blogService.getBlogs(queryParam);
+                    List<Blog> blogs = blogService.getBlogs(Optional.ofNullable(queryParam));
                     future.complete(Json.encodePrettily(blogs));
                 } else {
                     //get all blogs
-                    List<Blog> blogs = blogService.getBlogs();
+                    List<Blog> blogs = blogService.getBlogs(Optional.empty());
                     future.complete(Json.encodePrettily(blogs));
                 }
             } catch (Exception ex) {
                 logger.error("Exception while trying to fetch blogs " + queryParam, ex);
-                future.fail(ex.getCause());
+                future.fail(ex);
             }
         }, res -> {
             if (res.succeeded()) {
@@ -114,7 +115,7 @@ public class BlogHandler {
                     future.complete(user);
                 } catch (Exception ex) {
                     logger.error("Error while retrieving user details for id :" + id, ex);
-                    future.fail(ex.getCause());
+                    future.fail(ex);
                 }
             }, res -> {
 
@@ -144,7 +145,7 @@ public class BlogHandler {
                 future.complete(blogService.storeBlog(blog));
             } catch (Exception ex) {
                 logger.error("Error occurred while trying to save Blog details ", ex);
-                future.fail(ex.getCause());
+                future.fail(ex);
             }
         }, res -> {
             if (res.succeeded())
@@ -194,7 +195,7 @@ public class BlogHandler {
                     future.complete(user);
                 } catch (Exception ex) {
                     logger.error("Error while trying to fetch user details ", ex);
-                    future.fail(ex.getCause());
+                    future.fail(ex);
                 }
             }, res -> {
                 if (res.succeeded()) {
@@ -233,7 +234,7 @@ public class BlogHandler {
                 future.complete();
             } catch (Exception ex) {
                 logger.error("Error occurred while trying to save Comment details for blog : " + blogId, ex);
-                future.fail(ex.getCause());
+                future.fail(ex);
             }
         }, res -> {
             if (res.succeeded())

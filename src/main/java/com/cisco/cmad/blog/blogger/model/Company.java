@@ -12,9 +12,9 @@ import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "company", noClassnameStored = true)
 @Indexes({
-        @Index(value = "companyAndSubdomain", unique = true, fields = {@Field("companyName"), @Field("subdomain")})
+        @Index(fields = {@Field("companyName"), @Field("subdomain")}, options = @IndexOptions(unique = true))
 })
-@ToString (doNotUseGetters = true)
+@ToString(doNotUseGetters = true)
 public class Company {
     @Id private ObjectId id;
     @Getter @Setter private String companyName;

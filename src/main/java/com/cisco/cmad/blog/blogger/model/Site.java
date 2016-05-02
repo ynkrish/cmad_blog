@@ -12,8 +12,8 @@ import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "site", noClassnameStored = true)
 @Indexes({
-        @Index(value = "siteName", fields = @Field("siteName")),
-        @Index(value = "siteAndCompany", unique = true, fields = {@Field("siteName"), @Field("companyId")})
+        @Index(fields = @Field("siteName")),
+        @Index(fields = {@Field("siteName"), @Field("companyId")}, options = @IndexOptions(unique = true))
 })
 @ToString(doNotUseGetters = true)
 public class Site {

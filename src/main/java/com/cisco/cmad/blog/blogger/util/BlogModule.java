@@ -51,9 +51,9 @@ public class BlogModule extends AbstractModule {
     @Provides @Singleton  Datastore getDatastore() {
         MongoClient mongoClient = new MongoClient(new MongoClientURI("mongodb://" + dbHost.orElse("localhost") + ":" + dbPort.orElse(27017)));
         Datastore datastore = new Morphia()
-                .mapPackage("com.cisco.cmad.blog.model")
+                .mapPackage("com.cisco.cmad.blog.blogger.model")
                 .createDatastore(mongoClient, dbName.orElse("cmad-blog"));
-        datastore.ensureIndexes(true); //create in background, dont block
+        datastore.ensureIndexes(); //create in background, dont block
         return datastore;
     }
 
@@ -73,6 +73,7 @@ public class BlogModule extends AbstractModule {
         System.out.println("Host :" + module.dbHost.orElse("localhost-else"));
         System.out.println("Port :" + module.dbPort.orElse(-1));
         System.out.println("Name :" + module.dbName.orElse("cmad-blog-else"));
+
     }
 
 }
