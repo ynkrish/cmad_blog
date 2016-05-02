@@ -21,7 +21,7 @@ public class BloggerVerticleTest {
 
 	@Before
 	public void setUp(TestContext context) throws Exception {
-		vertx = Vertx.vertx();
+		/*vertx = Vertx.vertx();
 
 		//Find free port and use that in our code for deploying verticle
 		ServerSocket socket = new ServerSocket(0);
@@ -29,12 +29,12 @@ public class BloggerVerticleTest {
 		socket.close();
 		DeploymentOptions options = new DeploymentOptions().setConfig(new JsonObject().put("https.port", port));
 
-		vertx.deployVerticle(BloggerVerticle.class.getName(), options, context.asyncAssertSuccess());
-	}
+		//vertx.deployVerticle(BloggerVerticle.class.getName(), options, context.asyncAssertSuccess());
+	}*/
 
 	@After
 	public void tearDown(TestContext context) {
-		vertx.close(context.asyncAssertSuccess());
+		//vertx.close(context.asyncAssertSuccess());
 	}
 
 	@Test
