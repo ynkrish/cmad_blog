@@ -180,7 +180,7 @@ public class UserHandler {
            way the collection has been designed
          */
 
-        if (reg != null && reg.getIsCompany()) {
+        if (reg != null && reg.getIsCompany() != null && reg.getIsCompany()) {
             //Company and user registration
             //first create company, then, create site, then, department and use the ids from these in
             //user creation
