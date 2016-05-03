@@ -10,6 +10,8 @@ ENV CONTAINER_VERTICLE_HOME /usr/verticles
 #Expose port of the docker image
 EXPOSE 8443
 
+USER root
+
 #Create User / group cmaduser and change permissions for home folder
 RUN groupadd -r cmaduser -g 433 && \
     useradd -u 431 -r -g cmaduser -d $CONTAINER_VERTICLE_HOME -s /sbin/nologin -c "Docker image user" cmaduser && \
