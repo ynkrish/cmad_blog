@@ -1,4 +1,4 @@
-FROM ynkrish/ubuntu1510_jdk8
+FROM ynkrish/ubuntu1510_jdk8:v1
 MAINTAINER Krish <kyechcha@cisco.com>
 
 #Environment variables
