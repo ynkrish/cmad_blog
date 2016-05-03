@@ -3,7 +3,7 @@ MAINTAINER Krish <kyechcha@cisco.com>
 
 #Environment variables
 ENV VERTICLE_PATH target
-ENV VERTIFLE_FILE blogger-services-1.0.0-SNAPSHOT-fat.jar
+ENV VERTICLE_FILE blogger-services-1.0.0-SNAPSHOT-fat.jar
 
 ENV CONTAINER_VERTICLE_HOME /opt/verticles
 
