@@ -16,4 +16,4 @@ COPY $VERTICLE_PATH/$VERTICLE_FILE CONTAINER_VERTICLE_HOME/
 #Launch the verticle
 WORKDIR $CONTAINER_VERTICLE_HOME
 ENTRYPOINT ["sh", "-c"]
-CMD ["java -jar $VERTICLE_FILE"]
+CMD ["java -jar blogger-services-1.0.0-SNAPSHOT-fat.jar"]
