@@ -45,16 +45,14 @@ public class BlogServiceTest {
 
         blogList.forEach(b -> out.println("Blog ::" + b.getTitle()));
 
-        BDDMockito.given(blogDaoMock.createQuery()).willReturn(blogQueryMock);
-        BDDMockito.given(blogQueryMock.order("-date")).willReturn(blogQueryMock);
-        BDDMockito.given(blogQueryMock.asList()).willReturn(blogList);
+        BDDMockito.given(blogDaoMock.getBlogs(Optional.empty())).willReturn(blogList);
 
         List<Blog> allBlogList = blogService.getBlogs(Optional.empty());
 
         allBlogList.forEach(b -> out.println("AllBlogList ::" + b));
 
-       // Assert.assertEquals("Blog size should match ", 1, allBlogList.size());
-      //  Assert.assertEquals("Blog titles shoudl match ", allBlogList.get(0).getTitle(), blogList.get(0).getTitle());
+        Assert.assertEquals("Blog size should match ", 1, allBlogList.size());
+        Assert.assertEquals("Blog titles shoudl match ", allBlogList.get(0).getTitle(), blogList.get(0).getTitle());
 
     }
 
