@@ -133,29 +133,22 @@ public class CompanyHandler {
         String siteId = rc.request().getParam("siteId");
 
         rc.vertx().executeBlocking(future -> {
-
-            if (logger.isDebugEnabled()) {
+            if (logger.isDebugEnabled())
                 logger.debug("Company Id :" + companyId + " Site Id" + siteId);
-            }
 
             //Ignoring company id as we can directly query departments based on sites in current design
-
-            if (siteId == null || siteId.trim().length() == 0) {
-                //Invalid site id
-                response.setStatusCode(HttpResponseCode.BAD_REQUEST.get()).end("Empty Site Id");
-            } else {
-                try {
-                    List<Department> departments = companyService.getDeptListForSite(companyId, siteId);
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("Departments for Site :" + siteId + " ::" + departments);
-                    }
-                    future.complete(departments);
-                } catch (Exception ex) {
-                    logger.error("Error while fetching departments for Company :"
-                            + companyId + " and Site :" + siteId, ex);
-                    future.fail(ex);
+            try {
+                List<Department> departments = companyService.getDeptListForSite(companyId, siteId);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Departments for Site :" + siteId + " ::" + departments);
                 }
+                future.complete(departments);
+            } catch (Exception ex) {
+                logger.error("Error while fetching departments for Company :"
+                        + companyId + " and Site :" + siteId, ex);
+                future.fail(ex);
             }
+
         }, res -> {
             if (res.succeeded()) {
                 Object obj = res.result();

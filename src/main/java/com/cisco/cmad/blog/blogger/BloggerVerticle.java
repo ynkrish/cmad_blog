@@ -26,32 +26,6 @@ import javax.inject.Inject;
 
 public class BloggerVerticle extends AbstractVerticle {
 
-	/*
-     * Note:
-	 * 
-	 * 1. Change to use logger - DONE.
-	 * 2. Come up with the model classes & DTOs - DONE, not using DTO for now.
-	 * 3. Register the various REST Service URLs - DONE
-	 * 4. Respond with correct HTTP codes (need to come up with these) - DONE
-	 * 5. Handle exceptions .. - DONE
-	 * 6. Persist data to DB and retrieve data from DB (mongodb for now) - DONE
-	 * 7. Write Unit test cases with Vert.x unit and jUnit - Partially DONE
-	 * 8. Test Coverage  - TBD
-	 * 9. Separate deployment - i.e. separate docker containers for DB and for Service tier. - DONE
-	 * 10. figure out Auth mechanism in Vert.x - DONE. (USER LOGIN - not using Auth Provider for now.. TBD: Refactor)
-	 * 11. Move long running tasks to worker threads - DONE
-	 * 12. Remove internet dependencies (on JS downloads) - DONE
-	 * 13. Session handling and session invalidation. - PARTIALLY DONE. TBD: LOGOUT NEEDS TO BE DONE IN GUI
-	 * 14. HTTPS support (as we are using session cookies with http) - DONE
-	 * 15. Refactor and remove DB access code to another tier. - DONE
-	 * 16. Perform DI for Service/DAOs - DONE
-	 * 17. Security headers - best practices - DONE
-	 * 18. Basic Auth for REST Services - TBD, Handling in Angular to be discussed
-	 * 19. ObjectMappers - DONE
-	 * 20. Externalize DB properties and inject same into code - DONE
-	 * 21. Dockerfile to be added - DONE
-	 */
-
     Logger logger = LoggerFactory.getLogger(BloggerVerticle.class);
 
     @Inject BlogHandler blogHandler;
