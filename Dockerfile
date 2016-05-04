@@ -17,3 +17,6 @@ COPY $VERTICLE_PATH/$VERTICLE_FILE $CONTAINER_VERTICLE_HOME/
 WORKDIR $CONTAINER_VERTICLE_HOME
 ENTRYPOINT ["sh", "-c"]
 CMD ["java -jar $VERTICLE_FILE"]
+
+#TODO: Currently using ROOT user, need to create local user and use that
+# filename to be inferred ?

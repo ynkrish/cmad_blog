@@ -55,6 +55,7 @@ public class CompanyHandler {
         }, res -> {
             HttpServerResponse response = rc.response();
             if (res.succeeded()) {
+                response.putHeader(BlogConstants.CONTENT_TYPE, BlogConstants.JSON);
                 response.setStatusCode(HttpResponseCode.OK.get()).end(res.result().toString());
             } else {
                 response.setStatusCode(HttpResponseCode.INTERNAL_ERROR.get())
@@ -66,7 +67,6 @@ public class CompanyHandler {
     /**
      * Returns a list of Sites for a given Company
      * <p>
-     * Returns HTTP 400 in case no company id is passed
      * Returns HTTP 200 with empty response in case no sites are found for company
      * Returns HTTP 200 with list of sites in JSON format in case sites are found for company
      *
@@ -82,21 +82,17 @@ public class CompanyHandler {
             if (logger.isDebugEnabled())
                 logger.debug("Company Id :" + companyId);
 
-            if (companyId == null || companyId.trim().length() == 0) {
-                //Invalid company id
-                response.setStatusCode(HttpResponseCode.BAD_REQUEST.get()).end("Empty Company Id");
-            } else {
-                try {
-                    List<Site> sites = companyService.getSitesListForCompany(companyId);
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("Sites for company :" + companyId + " ::" + sites);
-                    }
-                    future.complete(sites);
-                } catch (Exception ex) {
-                    logger.error("Error while fetching sites for company :" + companyId, ex);
-                    future.fail(ex);
+            try {
+                List<Site> sites = companyService.getSitesListForCompany(companyId);
+                if (logger.isDebugEnabled()) {
+                    logger.debug("Sites for company :" + companyId + " ::" + sites);
                 }
+                future.complete(sites);
+            } catch (Exception ex) {
+                logger.error("Error while fetching sites for company :" + companyId, ex);
+                future.fail(ex);
             }
+
         }, res -> {
             if (res.succeeded()) {
                 Object obj = res.result();
