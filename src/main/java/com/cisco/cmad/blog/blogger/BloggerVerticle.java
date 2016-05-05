@@ -16,10 +16,7 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.core.net.JksOptions;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.BodyHandler;
-import io.vertx.ext.web.handler.CookieHandler;
-import io.vertx.ext.web.handler.SessionHandler;
-import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 
 import javax.inject.Inject;
@@ -54,17 +51,8 @@ public class BloggerVerticle extends AbstractVerticle {
                 .setCookieSecureFlag(true)
                 .setSessionTimeout(1800000L)); //30 minutes
 
-        //Adds X-XSRF-TOKEN header. XSRF-TOKEN cookie -
+        //Adds X-XSRF-TOKEN header. XSRF-TOKEN cookie - disabled currently - adds header per request. Check src for behavior
         //router.route().handler(CSRFHandler.create("CMAD - Blogger App, not yet a good secret !!"));
-
-        //Security related handlers
-/*
-        JsonObject authInfo = new JsonObject().put("username", "restServicesUser").put("password", "Cisco_123");
-
-         router.route("/Services/rest*//*").handler(new BasicAuthHandlerImpl((jsonObject, handler) -> {
-            jsonObject.put("username", "restServicesUser").put("password", "Cisco_123");
-
-        }, "cmadRealm"));*/
 
 	    /*
          * Perform REST Operations here. This is done *before* the static handler for path /
@@ -80,7 +68,7 @@ public class BloggerVerticle extends AbstractVerticle {
                     // prevents Internet Explorer from MIME - sniffing a
                     // response away from the declared content-type
                     .putHeader("X-Content-Type-Options", "nosniff")
-                    //  Strict HTTPS (for about ~6Months) -- NOTE: This gets ignored for Self Signed certs and generates logs of logs in FF, so commented for now
+                    //  Strict HTTPS (for about ~6Months) -- NOTE: This gets ignored for Self Signed certs and generates lots of logs in FF, so commented for now
                     //.putHeader("Strict-Transport-Security", "max-age=" + 15768000)
                     // IE8+ do not allow opening of attachments in the context of this resource
                     .putHeader("X-Download-Options", "noopen")
@@ -112,7 +100,7 @@ public class BloggerVerticle extends AbstractVerticle {
         router.route().handler(StaticHandler.create().setCachingEnabled(true)::handle);
 
         //For any exceptions that are not taken care of in code
-       //router.route().failureHandler(FailureHandler.create());
+        router.route().failureHandler(FailureHandler.create());
 
         //Enable SSL - currently using self signed certs
         HttpServerOptions httpOpts = new HttpServerOptions();
@@ -136,7 +124,7 @@ public class BloggerVerticle extends AbstractVerticle {
         router.route("/logout").handler(context -> {
             context.clearUser();
             logger.info("Logout called");
-            // Redirect back to the / page
+            // Redirect back to the index page
             context.response()
                     .putHeader("location", "/")
                     .setStatusCode(HttpResponseCode.REDIRECT.get())

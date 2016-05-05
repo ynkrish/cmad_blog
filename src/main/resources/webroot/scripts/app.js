@@ -76,9 +76,7 @@
 					$scope.loading = false;
 					//Setup a websocket connection to server using current host
 					
-                    //Krish - commented out WS currently
-                    
-                   /* ws = $websocket.$new('ws://'+$location.host()+':'+$location.port()+'/Services/chat', ['binary', 'base64']); // instance of ngWebsocket, handled by $websocket service
+                   ws = $websocket.$new('ws://'+$location.host()+':'+$location.port()+'/Services/chat', ['binary', 'base64']); // instance of ngWebsocket, handled by $websocket service
 					$log.debug("Web socket established...");
 			        ws.$on('$open', function () {
 			            $log.debug('Socket is open');
@@ -117,7 +115,7 @@
 			        ws.$on('$close', function () {
 			            console.log('Web socket closed');
 			            ws.$close();
-			        });*/
+			        });
 				}).error(function(data, status, headers, config) {
 					$scope.loading = false;
 					$scope.error = status;

@@ -84,10 +84,8 @@ public class UserHandler {
                         response.setStatusCode(HttpResponseCode.INTERNAL_ERROR.get())
                                 .end("Error while fetching user details :" + res.cause().getMessage());
                     }
-
                 });
             }
-
             if (logger.isDebugEnabled())
                 logger.debug("GET success :" + Thread.currentThread().getId());
         } else {

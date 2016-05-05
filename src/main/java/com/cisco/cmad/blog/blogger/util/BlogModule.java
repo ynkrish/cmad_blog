@@ -19,6 +19,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 import javax.inject.Singleton;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -53,7 +54,7 @@ public class BlogModule extends AbstractModule {
         Datastore datastore = new Morphia()
                 .mapPackage("com.cisco.cmad.blog.blogger.model")
                 .createDatastore(mongoClient, dbName.orElse("cmad-blog"));
-        datastore.ensureIndexes(); //create in background, dont block
+        datastore.ensureIndexes();
         return datastore;
     }
 
@@ -73,7 +74,6 @@ public class BlogModule extends AbstractModule {
         System.out.println("Host :" + module.dbHost.orElse("localhost-else"));
         System.out.println("Port :" + module.dbPort.orElse(-1));
         System.out.println("Name :" + module.dbName.orElse("cmad-blog-else"));
-
     }
 
 }
