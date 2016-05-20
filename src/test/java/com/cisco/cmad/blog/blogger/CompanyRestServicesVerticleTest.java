@@ -20,10 +20,12 @@ import io.vertx.ext.unit.junit.VertxUnitRunner;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +35,26 @@ public class CompanyRestServicesVerticleTest {
 
 	private int port;
 	private Vertx vertx;
+    private static BlogModule module;
 
     @Inject CompanyService companyService;
+
+    @BeforeClass
+    public static void setUp() throws Exception {
+
+        System.out.println("In setup Method **************************");
+
+        BlogModule blogModule = new BlogModule();
+
+        Injector injector = Guice.createInjector(blogModule);
+        module = injector.getInstance(BlogModule.class);
+
+    }
 
     @Before
 	public void before(TestContext context) throws Exception {
 
-        Injector injector = Guice.createInjector(new BlogModule());
-        BlogModule module = injector.getInstance(BlogModule.class);
+        System.out.println("In before method ^^^^^^^^^^^^^^^^^^^^");
         Guice.createInjector(module).injectMembers(this);
 
         vertx = Vertx.vertx();
@@ -56,6 +70,7 @@ public class CompanyRestServicesVerticleTest {
 
     @After
     public void after(TestContext context) {
+
         vertx.close(context.asyncAssertSuccess());
     }
 
@@ -80,6 +95,7 @@ public class CompanyRestServicesVerticleTest {
 		});
 	}
 
+/*
     @Test
     public void testGetSiteDetailsBasedOnCompanyId(TestContext context) {
         final Async async = context.async();
@@ -197,4 +213,5 @@ public class CompanyRestServicesVerticleTest {
                     });
                 });
     }
+*/
 }

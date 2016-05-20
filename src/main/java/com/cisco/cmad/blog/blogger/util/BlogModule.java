@@ -26,6 +26,7 @@ import java.util.Optional;
  * Created by kyechcha on 21-Apr-16.
  */
 @BindConfig(value = "blogger")
+@Singleton
 public class BlogModule extends AbstractModule {
 
     Logger logger = LoggerFactory.getLogger(BlogModule.class);
