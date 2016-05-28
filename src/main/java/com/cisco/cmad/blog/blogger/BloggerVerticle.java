@@ -135,7 +135,7 @@ public class BloggerVerticle extends AbstractVerticle {
 
     public static void main(String[] args) {
 
-        int port = 8443;
+        int port = 9443;
 
         /*
         Only for testing - in container, we need to pass this as -D params
