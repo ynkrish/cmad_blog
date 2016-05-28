@@ -8,7 +8,7 @@ ENV VERTICLE_FILE blogger-services-1.0.0-SNAPSHOT-fat.jar
 ENV CONTAINER_VERTICLE_HOME /opt/verticles
 
 #Expose port of the docker image
-EXPOSE 8443
+EXPOSE 9443
 
 #Copy your verticle to the container
 COPY $VERTICLE_PATH/$VERTICLE_FILE $CONTAINER_VERTICLE_HOME/
