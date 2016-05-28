@@ -111,7 +111,7 @@ public class BloggerVerticle extends AbstractVerticle {
 
         server.requestHandler(router::accept)
                 .listen(
-                        config().getInteger("https.port", 8443), result -> {
+                        config().getInteger("https.port", 9443), result -> {
                             if (result.succeeded()) {
                                 startFuture.complete();
                             } else {
